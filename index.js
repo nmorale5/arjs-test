@@ -18,10 +18,9 @@ function main() {
     // Create the device orientation tracker
     const deviceOrientationControls = new THREEx.DeviceOrientationControls(camera);
 
-    // Change this to a location 0.001 degrees of latitude north of you, so that you will face it
+    // Change this to a location close to you (e.g. 0.001 degrees of latitude north of you)
     arjs.add(box, -73.885, 40.713); 
 
-    // Start the GPS
     arjs.startGps();
 
     requestAnimationFrame(render);
