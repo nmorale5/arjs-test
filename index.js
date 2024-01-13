@@ -1,4 +1,3 @@
-
 import * as THREE from 'three';
 import * as THREEx from './node_modules/@ar-js-org/ar.js/three.js/build/ar-threex-location-only.js';
 
@@ -15,10 +14,15 @@ function main() {
     const geom = new THREE.BoxGeometry(20, 20, 20);
     const mtl = new THREE.MeshBasicMaterial({color: 0xff0000});
     const box = new THREE.Mesh(geom, mtl);
-    arjs.add(box, -0.72, 51.051); 
 
+    // Create the device orientation tracker
+    const deviceOrientationControls = new THREEx.DeviceOrientationControls(camera);
 
-    arjs.fakeGps(-0.72, 51.05);
+    // Change this to a location 0.001 degrees of latitude north of you, so that you will face it
+    arjs.add(box, -73.885, 40.713); 
+
+    // Start the GPS
+    arjs.startGps();
 
     requestAnimationFrame(render);
 
@@ -29,6 +33,10 @@ function main() {
             camera.aspect = aspect;
             camera.updateProjectionMatrix();
         }
+
+        // Update the scene using the latest sensor readings
+        deviceOrientationControls.update();
+
         cam.update();
         renderer.render(scene, camera);
         requestAnimationFrame(render);
